@@ -1,0 +1,8 @@
+D:\yenngoc\bai1\bai1\bin\Debug\bai1.exe.config
+D:\yenngoc\bai1\bai1\bin\Debug\bai1.exe
+D:\yenngoc\bai1\bai1\bin\Debug\bai1.pdb
+D:\yenngoc\bai1\bai1\obj\Debug\bai1.csproj.AssemblyReference.cache
+D:\yenngoc\bai1\bai1\obj\Debug\bai1.csproj.SuggestedBindingRedirects.cache
+D:\yenngoc\bai1\bai1\obj\Debug\bai1.csproj.CoreCompileInputs.cache
+D:\yenngoc\bai1\bai1\obj\Debug\bai1.exe
+D:\yenngoc\bai1\bai1\obj\Debug\bai1.pdb
