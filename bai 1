@@ -1,0 +1,86 @@
+Bai 1: internal class Program
+    {
+            static void Main(string[] args)
+            {
+                Console.OutputEncoding = Encoding.UTF8;
+                Queue<int> queue = new Queue<int>();
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Chọn chức năng:");
+                    Console.WriteLine("1. Thêm phần tử vào queue ");
+                    Console.WriteLine("2. Loại bỏ phần tử khỏi queue");
+                    Console.WriteLine("3. Xem phần tử đầu của queue ");
+                    Console.WriteLine("4. Kiểm tra queue có rỗng hay không (IsEmpty)");
+                    Console.WriteLine("5. Xuất thông tin của của queue");
+                    Console.WriteLine("6. Thoát");
+                    Console.Write(" Lựa chọn:");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.Write("Nhập phần tử cần thêm : ");
+                            int element = int.Parse(Console.ReadLine());
+                            queue.Enqueue(element);
+                            Console.WriteLine($"{element} đã được thêm vào queue.");
+                            break;
+
+                        case 2:
+                            if (queue.Count > 0)
+                            {
+                                int removedElement = queue.Dequeue();
+                                Console.WriteLine($"{removedElement} đã được loại bỏ khỏi queue.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Queue rỗng, không thể thực hiện thao tác dequeue.");
+                            }
+                            Console.ReadKey();
+                            break;
+
+                        case 3:
+                            if (queue.Count > 0)
+                            {
+                                int topElement = queue.Peek();
+                                Console.WriteLine($"Phần tử đầu của queue là: {topElement}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Queue rỗng, không có phần tử nào để xem.");
+                            }
+                            Console.ReadKey();
+                            break;
+
+                        case 4:
+                            if (queue.Count > 0)
+                            {
+                                Console.WriteLine("Queue không rỗng.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Queue rỗng.");
+                            }
+                            Console.ReadKey();
+                            break;
+
+                        case 5:
+                        while (queue.Count > 0)
+                        {
+                            int item = queue.Dequeue();
+                            Console.WriteLine(item + " ");
+                        }
+                        Console.ReadKey();
+                        break;
+
+                    case 6:
+                        Console.WriteLine("Thoát chương trình.");
+                        return;
+
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ, vui lòng chọn lại.");
+                        break;
+                }
+            }
+        }
+    }
+                    
