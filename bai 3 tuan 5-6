@@ -1,0 +1,101 @@
+internal class Customer
+    {
+        public string HoTen { get; set; }
+        public int MaSo { get; set; }
+
+        public Customer(string hoTen, int maSo)
+        {
+            HoTen = hoTen;
+            MaSo = maSo;
+        }
+
+        public override string ToString()
+        {
+            return $"Mã KH: {MaSo}, Họ tên: {HoTen}";
+        }
+    }
+}
+internal class Program
+    {
+        static void Main(string[] args)
+            {
+                Console.OutputEncoding = System.Text.Encoding.UTF8;
+                Queue<Customer> queue = new Queue<Customer>();
+
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("===== QUẢN LÝ KHÁCH HÀNG =====");
+                    Console.WriteLine("1. Thêm khách hàng vào hàng đợi");
+                    Console.WriteLine("2. Xóa khách hàng khỏi hàng đợi");
+                    Console.WriteLine("3. Xem khách hàng đầu tiên");
+                    Console.WriteLine("4. Hiển thị tất cả khách hàng");
+                    Console.WriteLine("5. Thoát");
+                    Console.Write("Chọn chức năng: ");
+                    int choice = int.Parse(Console.ReadLine());
+
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.Write("Nhập họ tên khách hàng: ");
+                            string ten = Console.ReadLine();
+                            Console.Write("Nhập mã số khách hàng: ");
+                            int ma = int.Parse(Console.ReadLine());
+                            queue.Enqueue(new Customer(ten, ma));
+                            Console.WriteLine("Đã thêm khách hàng!");
+                            break;
+
+                        case 2:
+                            if (queue.Count > 0)
+                            {
+                                Customer removed = queue.Dequeue();
+                                Console.WriteLine($"Đã xóa: {removed}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Hàng đợi rỗng!");
+                            }
+                            break;
+
+                        case 3:
+                            if (queue.Count > 0)
+                            {
+                                Console.WriteLine($"Khách đầu tiên: {queue.Peek()}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Không có khách hàng nào trong hàng đợi!");
+                            }
+                            break;
+
+                        case 4:
+                            if (queue.Count > 0)
+                            {
+                                Console.WriteLine("Danh sách khách hàng:");
+                                foreach (var c in queue)
+                                {
+                                    Console.WriteLine(c);
+                                }
+                            }
+                
+                        else
+                {
+                                Console.WriteLine("Hàng đợi rỗng!");
+                }
+                            break;
+
+                         case 5:
+                                Console.WriteLine("Thoát chương trình.");
+                            return;
+
+                            default:
+                                Console.WriteLine("Lựa chọn không hợp lệ!");
+                            break;
+            }
+
+                            Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục...");
+                            Console.ReadKey();
+        }
+    }
+}
+}
