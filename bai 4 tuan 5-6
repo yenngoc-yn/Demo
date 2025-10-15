@@ -1,0 +1,106 @@
+ internal class PrintJob
+    {
+        public int Id { get; set; }
+        public string FileName { get; set; }
+
+        public PrintJob(int id, string fileName)
+        {
+            Id = id;
+            FileName = fileName;
+        }
+
+        public override string ToString()
+        {
+            return $"[Job {Id}] Tên file: {FileName}";
+        }
+    }
+}
+internal class PrinterQueueSimulator
+    {
+        private Queue<PrintJob> printerQueue = new Queue<PrintJob>();
+        private int idCounter = 1;
+
+        public void AddJob()
+        {
+            Console.Write("Nhập tên file cần in: ");
+            string file = Console.ReadLine();
+            printerQueue.Enqueue(new PrintJob(idCounter++, file));
+            Console.WriteLine("Đã thêm công việc in!");
+        }
+
+        public void PrintNextJob()
+        {
+            if (printerQueue.Count > 0)
+            {
+                PrintJob job = printerQueue.Dequeue();
+                Console.WriteLine($"Đang in: {job}");
+            }
+            else
+            {
+                Console.WriteLine("Không có công việc nào trong hàng đợi!");
+            }
+        }
+
+        public void ShowAllJobs()
+        {
+            if (printerQueue.Count > 0)
+            {
+                Console.WriteLine("Các công việc đang chờ in:");
+                foreach (var job in printerQueue)
+                {
+                    Console.WriteLine(job);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Không có công việc nào!");
+            }
+        }
+    }
+}
+
+
+
+  internal class Program
+    {
+        static void Main(string[] args)
+        {
+                Console.OutputEncoding = System.Text.Encoding.UTF8;
+                PrinterQueueSimulator simulator = new PrinterQueueSimulator();
+
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("===== MÔ PHỎNG HÀNG ĐỢI MÁY IN =====");
+                    Console.WriteLine("1. Thêm công việc in mới");
+                    Console.WriteLine("2. Thực hiện công việc in đầu tiên");
+                    Console.WriteLine("3. Hiển thị các công việc đang chờ");
+                    Console.WriteLine("4. Thoát");
+                    Console.Write("Chọn chức năng: ");
+                    int choice = int.Parse(Console.ReadLine());
+
+                    switch (choice)
+                    {
+                        case 1:
+                            simulator.AddJob();
+                            break;
+                        case 2:
+                            simulator.PrintNextJob();
+                            break;
+                        case 3:
+                            simulator.ShowAllJobs();
+                            break;
+                        case 4:
+                            Console.WriteLine("Kết thúc chương trình.");
+                            return;
+                        default:
+                            Console.WriteLine("Lựa chọn không hợp lệ!");
+                            break;
+                    }
+
+                    Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục...");
+                    Console.ReadKey();
+                }
+            }
+        }
+    }
