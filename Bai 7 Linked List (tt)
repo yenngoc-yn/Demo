@@ -1,0 +1,109 @@
+internal class Song
+    {
+        public string Title;
+        public string Artist;
+        public Song(string title, string artist = "") { Title = title; Artist = artist; }
+    }
+internal class SongNode
+    {
+        public Song Data;
+        public SongNode Prev;
+        public SongNode Next;
+        public SongNode(Song s) { Data = s; }
+    }
+}
+
+internal class Playlist
+    {
+        private SongNode head, tail, current;
+
+        public void AddSong(Song s)
+        {
+            SongNode n = new SongNode(s);
+            if (head == null) head = tail = current = n;
+            else
+            {
+                tail.Next = n;
+                n.Prev = tail;
+                tail = n;
+            }
+            Console.WriteLine($"Đã thêm bài: {s.Title}");
+        }
+
+        public void RemoveSong(string title)
+        {
+            SongNode cur = head;
+            while (cur != null && !cur.Data.Title.Equals(title, StringComparison.OrdinalIgnoreCase))
+                cur = cur.Next;
+            if (cur == null) { Console.WriteLine("Không tìm thấy."); return; }
+
+            if (cur.Prev != null) cur.Prev.Next = cur.Next; else head = cur.Next;
+            if (cur.Next != null) cur.Next.Prev = cur.Prev; else tail = cur.Prev;
+
+            Console.WriteLine($"Đã xóa bài: {title}");
+        }
+
+        public void PlayNext()
+        {
+            if (current == null) { Console.WriteLine("Playlist rỗng."); return; }
+            if (current.Next != null) current = current.Next;
+            Console.WriteLine($"Đang phát: {current.Data.Title}");
+        }
+
+        public void PlayPrev()
+        {
+            if (current == null) { Console.WriteLine("Playlist rỗng."); return; }
+            if (current.Prev != null) current = current.Prev;
+            Console.WriteLine($"Đang phát: {current.Data.Title}");
+        }
+
+        public void Display()
+        {
+            if (head == null) { Console.WriteLine("Playlist rỗng."); return; }
+            Console.WriteLine("Playlist:");
+            SongNode cur = head;
+            while (cur != null)
+            {
+                string mark = (cur == current) ? " <= đang phát" : "";
+                Console.WriteLine($"- {cur.Data.Title}{mark}");
+                cur = cur.Next;
+            }
+        }
+
+        public void Shuffle()
+        {
+            List<Song> songs = new List<Song>();
+            SongNode cur = head;
+            while (cur != null) { songs.Add(cur.Data); cur = cur.Next; }
+
+            Random rng = new Random();
+            for (int i = songs.Count - 1; i > 0; i--)
+            {
+                int j = rng.Next(i + 1);
+                (songs[i], songs[j]) = (songs[j], songs[i]);
+            }
+
+            head = tail = current = null;
+            foreach (var s in songs) AddSong(s);
+            Console.WriteLine("Đã xáo trộn playlist.");
+        }
+    }
+}
+ internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Playlist pl = new Playlist();
+            pl.AddSong(new Song("Haru Haru"));
+            pl.AddSong(new Song("Love Scenario"));
+            pl.AddSong(new Song("Perfect Night"));
+
+            pl.Display();
+            pl.PlayNext();
+            pl.PlayPrev();
+            pl.RemoveSong("Love Scenario");
+            pl.Display();
+            pl.Shuffle();
+        }
+    }
+}
