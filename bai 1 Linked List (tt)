@@ -1,0 +1,96 @@
+internal class Node
+    {
+        public int Data;   
+        public Node Next;    
+
+        public Node(int data)
+        {
+            Data = data;
+            Next = null;
+        }
+    }
+    internal class LinkedList
+    {
+        private Node head;
+
+        public LinkedList()
+        {
+            head = null;
+        }
+
+        public void AddFirst(int data)
+        {
+            Node newNode = new Node(data);
+            newNode.Next = head;
+            head = newNode;
+            Console.WriteLine($"Đã thêm {data} vào đầu danh sách.");
+        }
+
+        public void AddLast(int data)
+        {
+            Node newNode = new Node(data);
+            if (head == null)
+            {
+                head = newNode;
+                Console.WriteLine($"Đã thêm {data} vào danh sách rỗng.");
+                return;
+            }
+
+            Node current = head;
+            while (current.Next != null)
+                current = current.Next;
+
+            current.Next = newNode;
+            Console.WriteLine($"Đã thêm {data} vào cuối danh sách.");
+        }
+
+        public void Display()
+        {
+            if (head == null)
+            {
+                Console.WriteLine("Danh sách rỗng!");
+                return;
+            }
+
+            Node current = head;
+            Console.Write("Danh sách: ");
+            while (current != null)
+            {
+                Console.Write(current.Data + " -> ");
+                current = current.Next;
+            }
+            Console.WriteLine("null");
+        }
+
+        public int Count()
+        {
+            int count = 0;
+            Node current = head;
+            while (current != null)
+            {
+                count++;
+                current = current.Next;
+            }
+            return count;
+        }
+    }
+}
+internal class Program
+    {
+            static void Main()
+            {
+                Console.WriteLine("=== BÀI 1: LINKEDLIST CƠ BẢN ===");
+
+                LinkedList list = new LinkedList();
+                list.AddFirst(10);
+                list.AddFirst(5);
+                list.AddLast(20);
+                list.AddLast(25);
+
+                list.Display();
+                Console.WriteLine($"Số phần tử: {list.Count()}");
+            }
+        
+    }
+}
+
