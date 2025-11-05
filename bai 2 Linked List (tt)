@@ -1,0 +1,85 @@
+ internal class Node
+    {
+
+        public int Data;
+        public Node Next;
+        public Node(int data) { Data = data; Next = null; }
+    }
+}
+internal class LinkedList
+    {
+        private Node head;
+
+        public void AddLast(int data)
+        {
+            Node newNode = new Node(data);
+            if (head == null) { head = newNode; return; }
+            Node cur = head;
+            while (cur.Next != null) cur = cur.Next;
+            cur.Next = newNode;
+        }
+
+        public void Display()
+        {
+            Node cur = head;
+            while (cur != null)
+            {
+                Console.Write(cur.Data + " -> ");
+                cur = cur.Next;
+            }
+            Console.WriteLine("null");
+        }
+
+        public void DeleteFirst()
+        {
+            if (head == null) return;
+            head = head.Next;
+        }
+
+        public void DeleteLast()
+        {
+            if (head == null) return;
+            if (head.Next == null) { head = null; return; }
+
+            Node cur = head;
+            while (cur.Next.Next != null)
+                cur = cur.Next;
+            cur.Next = null;
+        }
+
+        public void DeleteByValue(int x)
+        {
+            if (head == null) return;
+            if (head.Data == x) { head = head.Next; return; }
+
+            Node cur = head;
+            while (cur.Next != null && cur.Next.Data != x)
+                cur = cur.Next;
+
+            if (cur.Next != null)
+                cur.Next = cur.Next.Next;
+        }
+    }
+}
+ internal class Program
+    {
+            static void Main()
+            {
+                LinkedList list = new LinkedList();
+                list.AddLast(1);
+                list.AddLast(2);
+                list.AddLast(3);
+                list.AddLast(4);
+
+                Console.WriteLine("Trước khi xóa:");
+                list.Display();
+
+                list.DeleteFirst();
+                list.DeleteLast();
+                list.DeleteByValue(3);
+
+                Console.WriteLine("Sau khi xóa:");
+                list.Display();
+            }
+        
+    }
