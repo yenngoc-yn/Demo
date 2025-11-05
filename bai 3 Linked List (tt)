@@ -1,0 +1,92 @@
+ internal class Node
+    {
+        public int Data;
+        public Node Next;
+        public Node(int d) { Data = d; Next = null; }
+    }
+}
+internal class LinkedList
+    {
+        private Node head;
+
+        public void AddLast(int data)
+        {
+            Node n = new Node(data);
+            if (head == null) { head = n; return; }
+            Node cur = head;
+            while (cur.Next != null) cur = cur.Next;
+            cur.Next = n;
+        }
+
+        public int FindIndex(int x)
+        {
+            int i = 0;
+            Node cur = head;
+            while (cur != null)
+            {
+                if (cur.Data == x) return i;
+                i++; cur = cur.Next;
+            }
+            return -1;
+        }
+
+        public int? GetAt(int k)
+        {
+            int i = 0;
+            Node cur = head;
+            while (cur != null)
+            {
+                if (i == k) return cur.Data;
+                i++; cur = cur.Next;
+            }
+            return null;
+        }
+
+        public (int max, int min)? FindMaxMin()
+        {
+            if (head == null) return null;
+            int max = head.Data, min = head.Data;
+            Node cur = head.Next;
+            while (cur != null)
+            {
+                if (cur.Data > max) max = cur.Data;
+                if (cur.Data < min) min = cur.Data;
+                cur = cur.Next;
+            }
+            return (max, min);
+        }
+
+        public void Display()
+        {
+            Node cur = head;
+            while (cur != null)
+            {
+                Console.Write(cur.Data + " -> ");
+                cur = cur.Next;
+            }
+            Console.WriteLine("null");
+        }
+    }
+}
+internal class Program
+    {
+        
+            static void Main()
+            {
+                LinkedList list = new LinkedList();
+                list.AddLast(5);
+                list.AddLast(9);
+                list.AddLast(1);
+                list.AddLast(7);
+
+                list.Display();
+
+                Console.WriteLine($"Vị trí của 9: {list.FindIndex(9)}");
+                Console.WriteLine($"Phần tử tại vị trí 2: {list.GetAt(2)}");
+                var mm = list.FindMaxMin();
+                Console.WriteLine($"Max = {mm?.max}, Min = {mm?.min}");
+            }
+        
+    }
+    
+}
