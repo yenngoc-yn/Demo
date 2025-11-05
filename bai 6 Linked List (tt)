@@ -1,0 +1,83 @@
+  internal class Node
+    {
+        public int Data;
+        public Node Next;
+        public Node(int d) { Data = d; Next = null; }
+    }
+}
+internal class LinkedList
+    {
+        public Node head;
+
+        public void AddLast(int data)
+        {
+            Node n = new Node(data);
+            if (head == null) { head = n; return; }
+            Node cur = head;
+            while (cur.Next != null) cur = cur.Next;
+            cur.Next = n;
+        }
+
+        public void Display()
+        {
+            Node cur = head;
+            while (cur != null)
+            {
+                Console.Write(cur.Data + " -> ");
+                cur = cur.Next;
+            }
+            Console.WriteLine("null");
+        }
+
+        public static LinkedList MergeSorted(LinkedList a, LinkedList b)
+        {
+            LinkedList result = new LinkedList();
+            Node pa = a.head, pb = b.head;
+            Node tail = null;
+
+            while (pa != null && pb != null)
+            {
+                Node node = (pa.Data <= pb.Data) ? new Node(pa.Data) : new Node(pb.Data);
+                if (pa.Data <= pb.Data) pa = pa.Next;
+                else pb = pb.Next;
+
+                if (result.head == null)
+                {
+                    result.head = tail = node;
+                }
+                else
+                {
+                    tail.Next = node;
+                    tail = node;
+                }
+            }
+
+            Node remaining = (pa != null) ? pa : pb;
+            while (remaining != null)
+            {
+                Node node = new Node(remaining.Data);
+                tail.Next = node;
+                tail = node;
+                remaining = remaining.Next;
+            }
+
+            return result;
+        }
+    }
+}
+ internal class Program
+        {
+            static void Main()
+            {
+                LinkedList a = new LinkedList();
+                a.AddLast(1); a.AddLast(3); a.AddLast(5);
+                LinkedList b = new LinkedList();
+                b.AddLast(2); b.AddLast(4); b.AddLast(6);
+
+                LinkedList merged = LinkedList.MergeSorted(a, b);
+                Console.WriteLine("Kết quả hợp nhất:");
+                merged.Display();
+            }
+        }
+
+   
